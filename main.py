@@ -14,11 +14,22 @@ dictionary = os.getenv('dictionary')
 try:
     with open(dictionary, 'r', encoding='utf-8') as f:
         user_data = json.load(f)
+        if not isinstance(user_data, dict):
+            user_data = {}
+        user_data.setdefault("users", [])
+        user_data.setdefault("appointments", [])
+        user_data.setdefault("reviews", [])
 except FileNotFoundError:
     user_data = {}
+    user_data.setdefault("users", [])
+    user_data.setdefault("appointments", [])
+    user_data.setdefault("reviews", [])
     print(f'Файл {dictionary} не найден. Создан новый файл для хранения данных пользователей.')
 except Exception as e:
     user_data = {}
+    user_data.setdefault("users", [])
+    user_data.setdefault("appointments", [])
+    user_data.setdefault("reviews", [])
     print(f'Ошибка при загрузке данных пользователей: {e}, сообщите о ней разработчику.')
 
 
